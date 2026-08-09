@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ResQAI - Emergency Dashboard</title>
+
+    <!-- Leaflet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: #f4f7fb;
+
+            color: #17233c;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            height: 70px;
+
+            background: #101a33;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            color: white;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.12);
+        }
+
+        .logo {
+
+            font-size: 27px;
+
+            font-weight: 700;
+        }
+
+        .logo span {
+
+            color: #ff3b3b;
+        }
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 8px;
+        }
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 15px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+
+            background:
+                rgba(255,255,255,0.12);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1400px;
+
+            margin: 35px auto 60px;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .dashboard-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 28px;
+        }
+
+        .dashboard-header h1 {
+
+            font-size: 32px;
+
+            margin-bottom: 6px;
+        }
+
+        .dashboard-header p {
+
+            color: #748095;
+
+            font-size: 14px;
+        }
+
+        .live-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 20px;
+
+            padding: 9px 14px;
+
+            font-size: 13px;
+
+            color: #16834b;
+
+            font-weight: 600;
+        }
+
+        .live-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #20a464;
+
+            box-shadow:
+                0 0 0 4px rgba(32,164,100,0.12);
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+
+            background: white;
+
+            border: 1px solid #e3e8f0;
+
+            border-radius: 16px;
+
+            padding: 21px;
+
+            box-shadow:
+                0 7px 25px rgba(20,40,80,0.06);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .stat-icon {
+
+            width: 52px;
+
+            height: 52px;
+
+            border-radius: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            flex-shrink: 0;
+        }
+
+        .total-icon {
+
+            background: #eef4ff;
+        }
+
+        .critical-icon {
+
+            background: #fff0f0;
+        }
+
+        .priority-icon {
+
+            background: #fff5e8;
+        }
+
+        .map-icon {
+
+            background: #eaf8f0;
+        }
+
+        .stat-label {
+
+            color: #7a8799;
+
+            font-size: 12px;
+
+            margin-bottom: 5px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+        }
+
+        .stat-value {
+
+            font-size: 26px;
+
+            font-weight: 750;
+
+            color: #17233c;
+        }
+
+
+        /* =====================================================
+           INCIDENT TYPE FILTERS
+        ===================================================== */
+
+        .filter-card {
+
+            background: white;
+
+            border: 1px solid #e3e8f0;
+
+            border-radius: 16px;
+
+            padding: 20px 22px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 7px 25px rgba(20,40,80,0.05);
+        }
+
+        .filter-title {
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 13px;
+
+            color: #34425a;
+        }
+
+        .filter-buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+
+            border: 1px solid #dce3ed;
+
+            background: #f8fafc;
+
+            color: #526075;
+
+            padding: 9px 15px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .filter-btn:hover {
+
+            border-color: #9eacc1;
+
+            background: #f1f5f9;
+        }
+
+        .filter-btn.active {
+
+            background: #17233c;
+
+            color: white;
+
+            border-color: #17233c;
+        }
+
+
+        /* =====================================================
+           MAP
+        ===================================================== */
+
+        .map-card {
+
+            background: white;
+
+            border: 1px solid #e3e8f0;
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 7px 25px rgba(20,40,80,0.06);
+        }
+
+        .section-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 17px;
+        }
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .section-title-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            background: #eef4ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+        .section-title h2 {
+
+            font-size: 19px;
+        }
+
+        .section-subtitle {
+
+            color: #7a8799;
+
+            font-size: 12px;
+
+            margin-top: 3px;
+        }
+
+        #map {
+
+            width: 100%;
+
+            height: 470px;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            border: 1px solid #dfe5ed;
+        }
+
+
+        /* =====================================================
+           MAP LEGEND
+        ===================================================== */
+
+        .map-legend {
+
+            display: flex;
+
+            gap: 18px;
+
+            flex-wrap: wrap;
+
+            margin-top: 13px;
+
+            font-size: 12px;
+
+            color: #657287;
+        }
+
+        .legend-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+        }
+
+        .legend-dot {
+
+            width: 10px;
+
+            height: 10px;
+
+            border-radius: 50%;
+        }
+
+
+        /* =====================================================
+           INCIDENT TABLE
+        ===================================================== */
+
+        .table-card {
+
+            background: white;
+
+            border: 1px solid #e3e8f0;
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 7px 25px rgba(20,40,80,0.06);
+
+            overflow: hidden;
+        }
+
+        .table-wrapper {
+
+            overflow-x: auto;
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 850px;
+        }
+
+        thead {
+
+            background: #f7f9fc;
+        }
+
+        th {
+
+            text-align: left;
+
+            padding: 13px 14px;
+
+            font-size: 11px;
+
+            color: #738095;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+            border-bottom:
+                1px solid #e4e9f1;
+        }
+
+        td {
+
+            padding: 15px 14px;
+
+            border-bottom:
+                1px solid #edf0f4;
+
+            font-size: 13px;
+
+            color: #4e5c71;
+
+            vertical-align: middle;
+        }
+
+        tbody tr {
+
+            transition: 0.15s;
+        }
+
+        tbody tr:hover {
+
+            background: #fafcff;
+        }
+
+        .incident-id {
+
+            font-weight: 700;
+
+            color: #17233c;
+        }
+
+        .description {
+
+            max-width: 300px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            color: #526075;
+        }
+
+
+        /* =====================================================
+           BADGES
+        ===================================================== */
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        .fire {
+
+            background: #fff0ed;
+
+            color: #c43d20;
+        }
+
+        .accident {
+
+            background: #eef4ff;
+
+            color: #315da1;
+        }
+
+        .medical {
+
+            background: #eaf8f0;
+
+            color: #16834b;
+        }
+
+        .police {
+
+            background: #f0edff;
+
+            color: #5c45a7;
+        }
+
+        .other {
+
+            background: #f2f4f7;
+
+            color: #596579;
+        }
+
+        .critical {
+
+            background: #fff0f0;
+
+            color: #c62828;
+        }
+
+        .high {
+
+            background: #fff5e8;
+
+            color: #c25b00;
+        }
+
+        .normal {
+
+            background: #eaf8f0;
+
+            color: #16834b;
+        }
+
+
+        /* =====================================================
+           NO INCIDENTS
+        ===================================================== */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 55px 20px;
+
+            color: #7a8799;
+        }
+
+        .empty-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 30px;
+
+            color: #8a95a6;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+
+                padding: 0 20px;
+            }
+
+            .logo {
+
+                font-size: 23px;
+            }
+
+            .nav-links a {
+
+                padding: 7px;
+
+                font-size: 12px;
+            }
+
+            .container {
+
+                width: 94%;
+
+                margin-top: 25px;
+            }
+
+            .dashboard-header {
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                flex-direction: column;
+            }
+
+            .stats-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            #map {
+
+                height: 380px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            🚨 ResQ<span>AI</span>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/report">
+                Report
+            </a>
+
+            <a href="/dashboard"
+               class="active">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================= -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <h1>
+                    Emergency Operations Dashboard
+                </h1>
+
+                <p>
+                    Monitor incidents, severity, priorities
+                    and emergency locations in real time.
+                </p>
+
+            </div>
+
+
+            <div class="live-status">
+
+                <span class="live-dot"></span>
+
+                System Active
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- TOTAL -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon total-icon">
+
+                    📊
+
+                </div>
+
+                <div>
+
+                    <div class="stat-label">
+                        Total Incidents
+                    </div>
+
+                    <div class="stat-value">
+                        {{ total_incidents }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CRITICAL -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon critical-icon">
+
+                    🔴
+
+                </div>
+
+                <div>
+
+                    <div class="stat-label">
+                        Critical Incidents
+                    </div>
+
+                    <div class="stat-value">
+                        {{ critical_incidents }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- P1 -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon priority-icon">
+
+                    🚨
+
+                </div>
+
+                <div>
+
+                    <div class="stat-label">
+                        P1 Priority
+                    </div>
+
+                    <div class="stat-value">
+                        {{ high_priority }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAP -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon map-icon">
+
+                    📍
+
+                </div>
+
+                <div>
+
+                    <div class="stat-label">
+                        Mapped Incidents
+                    </div>
+
+                    <div class="stat-value"
+                         id="mappedCount">
+
+                        0
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             FILTERS
+        ================================================= -->
+
+        <section class="filter-card">
+
+            <div class="filter-title">
+
+                Filter Incidents
+
+            </div>
+
+
+            <div class="filter-buttons">
+
+                <button
+                    class="filter-btn active"
+                    onclick="filterIncidents('all', this)"
+                >
+                    All
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    onclick="filterIncidents('fire', this)"
+                >
+                    🔥 Fire
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    onclick="filterIncidents('accident', this)"
+                >
+                    🚗 Accident
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    onclick="filterIncidents('medical', this)"
+                >
+                    🏥 Medical
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    onclick="filterIncidents('police', this)"
+                >
+                    👮 Police
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MAP
+        ================================================= -->
+
+        <section class="map-card">
+
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <div class="section-title-icon">
+                        🗺️
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Incident Map
+                        </h2>
+
+                        <div class="section-subtitle">
+                            Geographic view of reported emergencies
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="map"></div>
+
+
+            <div class="map-legend">
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot"
+                        style="background:#e53935;">
+                    </span>
+
+                    Critical
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot"
+                        style="background:#f57c00;">
+                    </span>
+
+                    High
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span
+                        class="legend-dot"
+                        style="background:#16834b;">
+                    </span>
+
+                    Normal
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INCIDENT TABLE
+        ================================================= -->
+
+        <section class="table-card">
+
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <div class="section-title-icon">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Incident Reports
+                        </h2>
+
+                        <div class="section-subtitle">
+                            Latest emergency reports submitted to ResQAI
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% if incidents %}
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Priority
+                            </th>
+
+                            <th>
+                                Location
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="incidentTableBody">
+
+
+                    {% for incident in incidents %}
+
+
+                        <tr
+                            class="incident-row"
+                            data-type="{{ incident[2]|lower }}"
+                        >
+
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <span class="incident-id">
+
+                                    #{{ incident[0] }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <td>
+
+                                <div
+                                    class="description"
+                                    title="{{ incident[1] }}"
+                                >
+
+                                    {{ incident[1] }}
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- TYPE -->
+
+                            <td>
+
+                                {% set type =
+                                   incident[2]|lower %}
+
+
+                                {% if "fire" in type %}
+
+                                    <span class="badge fire">
+                                        🔥 Fire
+                                    </span>
+
+                                {% elif "accident" in type
+                                   or "road" in type %}
+
+                                    <span class="badge accident">
+                                        🚗 Accident
+                                    </span>
+
+                                {% elif "medical" in type
+                                   or "health" in type
+                                   or "injury" in type %}
+
+                                    <span class="badge medical">
+                                        🏥 Medical
+                                    </span>
+
+                                {% elif "police" in type
+                                   or "crime" in type %}
+
+                                    <span class="badge police">
+                                        👮 Police
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge other">
+                                        🚨 {{ incident[2] }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- SEVERITY -->
+
+                            <td>
+
+                                {% if incident[3]|lower == "critical" %}
+
+                                    <span class="badge critical">
+                                        🔴 {{ incident[3] }}
+                                    </span>
+
+                                {% elif incident[3]|lower == "high" %}
+
+                                    <span class="badge high">
+                                        🟠 {{ incident[3] }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge normal">
+                                        🟢 {{ incident[3] }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- PRIORITY -->
+
+                            <td>
+
+                                {% if incident[4]|upper == "P1" %}
+
+                                    <span class="badge critical">
+                                        🚨 {{ incident[4] }}
+                                    </span>
+
+                                {% elif incident[4]|upper == "P2" %}
+
+                                    <span class="badge high">
+                                        ⚠️ {{ incident[4] }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge normal">
+                                        ✓ {{ incident[4] }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- LOCATION -->
+
+                            <td>
+
+                                📍
+
+                                {{ incident[5] }}
+
+                            </td>
+
+
+                            <!-- DATE -->
+
+                            <td>
+
+                                {{ incident[8] }}
+
+                            </td>
+
+
+                        </tr>
+
+
+                    {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            {% else %}
+
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        📋
+                    </div>
+
+                    <h3>
+                        No incidents reported yet
+                    </h3>
+
+                    <p style="margin-top:7px;">
+                        Emergency reports will appear here
+                        after they are submitted.
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+        <div class="footer">
+
+            ResQAI — AI-Powered Emergency Response System
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         LEAFLET
+    ===================================================== -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+    <script>
+
+        /* =====================================================
+           INCIDENT DATA FROM FLASK
+        ===================================================== */
+
+        const incidents = [
+
+            {% for incident in incidents %}
+
+            {
+                id: {{ incident[0] }},
+                description:
+                    {{ incident[1]|tojson }},
+
+                type:
+                    {{ incident[2]|tojson }},
+
+                severity:
+                    {{ incident[3]|tojson }},
+
+                priority:
+                    {{ incident[4]|tojson }},
+
+                location:
+                    {{ incident[5]|tojson }},
+
+                latitude:
+                    {{ incident[6]|tojson }},
+
+                longitude:
+                    {{ incident[7]|tojson }},
+
+                created_at:
+                    {{ incident[8]|tojson }}
+            }
+
+            {% if not loop.last %},{% endif %}
+
+            {% endfor %}
+
+        ];
+
+
+        /* =====================================================
+           CREATE MAP
+        ===================================================== */
+
+        const map =
+            L.map("map");
+
+
+        L.tileLayer(
+
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+            {
+
+                attribution:
+                    "&copy; OpenStreetMap contributors"
+
+            }
+
+        ).addTo(map);
+
+
+        /* =====================================================
+           MARKER GROUP
+        ===================================================== */
+
+        let markerGroup =
+            L.layerGroup().addTo(map);
+
+
+        /* =====================================================
+           DEFAULT MAP POSITION
+        ===================================================== */
+
+        map.setView(
+            [17.3850, 78.4867],
+            6
+        );
+
+
+        /* =====================================================
+           GET MARKER TYPE
+        ===================================================== */
+
+        function getIncidentCategory(type) {
+
+            type =
+                String(type || "")
+                .toLowerCase();
+
+            if (type.includes("fire")) {
+
+                return "fire";
+
+            }
+
+            if (
+                type.includes("accident")
+                ||
+                type.includes("road")
+            ) {
+
+                return "accident";
+
+            }
+
+            if (
+                type.includes("medical")
+                ||
+                type.includes("health")
+                ||
+                type.includes("injury")
+            ) {
+
+                return "medical";
+
+            }
+
+            if (
+                type.includes("police")
+                ||
+                type.includes("crime")
+            ) {
+
+                return "police";
+
+            }
+
+            return "other";
+        }
+
+
+        /* =====================================================
+           MARKER COLOR
+        ===================================================== */
+
+        function getMarkerColor(severity) {
+
+            severity =
+                String(severity || "")
+                .toLowerCase();
+
+            if (severity === "critical") {
+
+                return "#e53935";
+
+            }
+
+            if (
+                severity === "high"
+                ||
+                severity === "severe"
+            ) {
+
+                return "#f57c00";
+
+            }
+
+            return "#16834b";
+        }
+
+
+        /* =====================================================
+           CREATE MARKERS
+        ===================================================== */
+
+        function showMarkers(filter = "all") {
+
+            markerGroup.clearLayers();
+
+
+            let mapped = 0;
+
+            let firstMarker = null;
+
+
+            incidents.forEach(function(incident) {
+
+
+                if (
+                    incident.latitude === null
+                    ||
+                    incident.longitude === null
+                    ||
+                    incident.latitude === ""
+                    ||
+                    incident.longitude === ""
+                ) {
+
+                    return;
+
+                }
+
+
+                const category =
+                    getIncidentCategory(
+                        incident.type
+                    );
+
+
+                if (
+                    filter !== "all"
+                    &&
+                    category !== filter
+                ) {
+
+                    return;
+
+                }
+
+
+                const lat =
+                    parseFloat(
+                        incident.latitude
+                    );
+
+                const lon =
+                    parseFloat(
+                        incident.longitude
+                    );
+
+
+                if (
+                    isNaN(lat)
+                    ||
+                    isNaN(lon)
+                ) {
+
+                    return;
+
+                }
+
+
+                mapped++;
+
+
+                const color =
+                    getMarkerColor(
+                        incident.severity
+                    );
+
+
+                const marker =
+                    L.circleMarker(
+
+                        [lat, lon],
+
+                        {
+
+                            radius: 9,
+
+                            fillColor: color,
+
+                            color: "#ffffff",
+
+                            weight: 2,
+
+                            opacity: 1,
+
+                            fillOpacity: 0.9
+
+                        }
+
+                    );
+
+
+                marker.bindPopup(
+
+                    `
+
+                    <div style="
+                        min-width:220px;
+                        font-family:Arial;
+                    ">
+
+                        <strong style="
+                            font-size:16px;
+                        ">
+                            🚨 Incident #${incident.id}
+                        </strong>
+
+                        <hr>
+
+                        <b>Type:</b>
+                        ${incident.type}
+
+                        <br>
+
+                        <b>Severity:</b>
+                        ${incident.severity}
+
+                        <br>
+
+                        <b>Priority:</b>
+                        ${incident.priority}
+
+                        <br>
+
+                        <b>Location:</b>
+                        ${incident.location}
+
+                        <br><br>
+
+                        <b>Description:</b>
+
+                        <br>
+
+                        ${incident.description}
+
+                    </div>
+
+                    `
+
+                );
+
+
+                marker.addTo(markerGroup);
+
+
+                if (!firstMarker) {
+
+                    firstMarker = marker;
+
+                }
+
+            });
+
+
+            document.getElementById(
+                "mappedCount"
+            ).innerText = mapped;
+
+
+            if (firstMarker) {
+
+                map.setView(
+                    firstMarker.getLatLng(),
+                    13
+                );
+
+            }
+
+            else {
+
+                map.setView(
+                    [17.3850, 78.4867],
+                    6
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FILTER TABLE + MAP
+        ===================================================== */
+
+        function filterIncidents(
+            filter,
+            button
+        ) {
+
+
+            /* ---------------------------------------------
+               Update active button
+            --------------------------------------------- */
+
+            document
+                .querySelectorAll(".filter-btn")
+                .forEach(function(btn) {
+
+                    btn.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            /* ---------------------------------------------
+               Filter table
+            --------------------------------------------- */
+
+            document
+                .querySelectorAll(".incident-row")
+                .forEach(function(row) {
+
+
+                    const type =
+                        String(
+                            row.dataset.type
+                        ).toLowerCase();
+
+
+                    const category =
+                        getIncidentCategory(
+                            type
+                        );
+
+
+                    if (
+                        filter === "all"
+                        ||
+                        category === filter
+                    ) {
+
+                        row.style.display =
+                            "";
+
+                    }
+
+                    else {
+
+                        row.style.display =
+                            "none";
+
+                    }
+
+                });
+
+
+            /* ---------------------------------------------
+               Filter map
+            --------------------------------------------- */
+
+            showMarkers(
+                filter
+            );
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        showMarkers("all");
+
+    </script>
+
+
+</body>
+
+</html>

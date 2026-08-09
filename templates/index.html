@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ResQAI | AI Emergency Response System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVIGATION BAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="logo">
+                <span class="logo-icon">✚</span>
+                <span>ResQAI</span>
+            </div>
+
+
+            <div class="nav-links">
+
+                <a href="/" class="active">
+                    Home
+                </a>
+
+                <a href="/report">
+                    Report Emergency
+                </a>
+
+                <a href="/dashboard">
+                    Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-container">
+
+
+            <!-- LEFT SIDE -->
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+                    🤖 AI-POWERED EMERGENCY RESPONSE
+                </div>
+
+
+                <h1>
+                    Smarter Emergency
+                    <span>Response.</span>
+                </h1>
+
+
+                <p class="hero-subtitle">
+                    ResQAI uses artificial intelligence and
+                    location intelligence to analyze emergency
+                    incidents, determine their severity, and
+                    connect responders with the right emergency
+                    resources.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a href="/report"
+                       class="primary-btn">
+
+                        🚨 Report an Emergency
+
+                    </a>
+
+
+                    <a href="/dashboard"
+                       class="secondary-btn">
+
+                        📊 View Dashboard
+
+                    </a>
+
+                </div>
+
+
+                <div class="hero-note">
+
+                    <span>⚡</span>
+
+                    Fast incident analysis •
+                    Smart prioritization •
+                    Location-based response
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="hero-visual">
+
+                <div class="response-card">
+
+                    <div class="response-header">
+
+                        <div>
+                            <span class="status-dot"></span>
+                            ResQAI System
+                        </div>
+
+                        <span class="live-label">
+                            LIVE
+                        </span>
+
+                    </div>
+
+
+                    <div class="response-title">
+
+                        Emergency Response
+
+                    </div>
+
+
+                    <div class="response-map">
+
+                        <div class="map-grid"></div>
+
+                        <div class="map-road road-one"></div>
+
+                        <div class="map-road road-two"></div>
+
+                        <div class="map-marker marker-fire">
+                            🔥
+                        </div>
+
+                        <div class="map-marker marker-medical">
+                            🏥
+                        </div>
+
+                        <div class="map-marker marker-police">
+                            🚓
+                        </div>
+
+                    </div>
+
+
+                    <div class="response-status">
+
+                        <div>
+
+                            <small>
+                                AI Classification
+                            </small>
+
+                            <strong>
+                                ACTIVE
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <small>
+                                Location
+                            </small>
+
+                            <strong>
+                                📍 Detected
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         EMERGENCY TYPES
+    ====================================================== -->
+
+    <section class="emergency-types">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>
+                    EMERGENCY INTELLIGENCE
+                </span>
+
+                <h2>
+                    One system for every emergency
+                </h2>
+
+                <p>
+                    ResQAI identifies the incident type and
+                    helps locate the appropriate emergency
+                    resources.
+                </p>
+
+            </div>
+
+
+            <div class="emergency-grid">
+
+
+                <!-- FIRE -->
+
+                <div class="emergency-card fire-card">
+
+                    <div class="emergency-icon">
+                        🔥
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Fire Emergency
+                        </h3>
+
+                        <p>
+                            Identifies fire incidents and
+                            helps locate nearby fire stations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACCIDENT -->
+
+                <div class="emergency-card accident-card">
+
+                    <div class="emergency-icon">
+                        🚗
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Road Accident
+                        </h3>
+
+                        <p>
+                            Detects accident reports and
+                            helps identify nearby medical
+                            facilities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MEDICAL -->
+
+                <div class="emergency-card medical-card">
+
+                    <div class="emergency-icon">
+                        🏥
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Medical Emergency
+                        </h3>
+
+                        <p>
+                            Identifies medical emergencies
+                            and helps locate nearby hospitals.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- POLICE -->
+
+                <div class="emergency-card police-card">
+
+                    <div class="emergency-icon">
+                        🚓
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Police Emergency
+                        </h3>
+
+                        <p>
+                            Identifies crime-related incidents
+                            and helps locate nearby police
+                            stations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         HOW RESQAI WORKS
+    ====================================================== -->
+
+    <section class="how-it-works">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>
+                    HOW IT WORKS
+                </span>
+
+                <h2>
+                    From incident to response
+                </h2>
+
+                <p>
+                    ResQAI combines AI, location data and
+                    emergency-resource search into one system.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <!-- STEP 1 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Report
+                    </h3>
+
+                    <p>
+                        Submit an emergency description
+                        and location.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+                <!-- STEP 2 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h3>
+                        AI Analysis
+                    </h3>
+
+                    <p>
+                        AI analyzes the description and
+                        identifies the emergency type.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+                <!-- STEP 3 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Prioritize
+                    </h3>
+
+                    <p>
+                        The system determines severity
+                        and response priority.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+                <!-- STEP 4 -->
+
+                <div class="step">
+
+                    <div class="step-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Respond
+                    </h3>
+
+                    <p>
+                        Nearby relevant emergency resources
+                        are displayed on the map.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURES
+    ====================================================== -->
+
+    <section class="features-section">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>
+                    CORE CAPABILITIES
+                </span>
+
+                <h2>
+                    Built for faster decisions
+                </h2>
+
+            </div>
+
+
+            <div class="features-grid">
+
+
+                <!-- AI -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        AI Incident Analysis
+                    </h3>
+
+                    <p>
+                        Machine learning analyzes the
+                        emergency description and predicts
+                        the incident category.
+                    </p>
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📍
+                    </div>
+
+                    <h3>
+                        Location Intelligence
+                    </h3>
+
+                    <p>
+                        GPS and geocoding are used to identify
+                        the incident location and nearby
+                        emergency facilities.
+                    </p>
+
+                </div>
+
+
+                <!-- RESOURCES -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🚑
+                    </div>
+
+                    <h3>
+                        Smart Resource Filtering
+                    </h3>
+
+                    <p>
+                        Only relevant resources are displayed.
+                        Fire incidents show fire stations,
+                        while accidents show medical facilities.
+                    </p>
+
+                </div>
+
+
+                <!-- DASHBOARD -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Emergency Dashboard
+                    </h3>
+
+                    <p>
+                        Monitor reported incidents, severity,
+                        priority and locations from a
+                        centralized dashboard.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CALL TO ACTION
+    ====================================================== -->
+
+    <section class="cta-section">
+
+        <div class="cta-container">
+
+            <div>
+
+                <span class="cta-label">
+                    NEED EMERGENCY ASSISTANCE?
+                </span>
+
+                <h2>
+                    Report an incident now.
+                </h2>
+
+                <p>
+                    Let ResQAI analyze the situation and
+                    identify the appropriate emergency
+                    resources near you.
+                </p>
+
+            </div>
+
+
+            <a href="/report"
+               class="primary-btn cta-btn">
+
+                🚨 Report Emergency
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-logo">
+
+                <span class="logo-icon">
+                    ✚
+                </span>
+
+                <strong>
+                    ResQAI
+                </strong>
+
+            </div>
+
+
+            <p>
+                AI-powered emergency incident analysis
+                and response assistance.
+            </p>
+
+
+            <div class="footer-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/report">
+                    Report Emergency
+                </a>
+
+                <a href="/dashboard">
+                    Dashboard
+                </a>
+
+            </div>
+
+
+            <div class="copyright">
+
+                © 2026 ResQAI.
+                Emergency Response System.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

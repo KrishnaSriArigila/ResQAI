@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        ResQAI - Nearby Emergency Resources
+    </title>
+
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f8;
+
+            margin: 0;
+
+            padding: 30px;
+
+        }
+
+
+        .container {
+
+            max-width: 900px;
+
+            margin: auto;
+
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #b30000;
+
+        }
+
+
+        .location {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            margin: 20px 0;
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.1);
+
+        }
+
+
+        .resource-card {
+
+            background: white;
+
+            padding: 20px;
+
+            margin: 15px 0;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.1);
+
+        }
+
+
+        .resource-name {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        .resource-type {
+
+            color: #b30000;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+
+        }
+
+
+        .address {
+
+            margin-top: 12px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .coordinates {
+
+            color: #666;
+
+            margin-top: 10px;
+
+            font-size: 14px;
+
+        }
+
+
+        .empty {
+
+            background: white;
+
+            padding: 30px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+
+        🚨 Nearby Emergency Resources
+
+    </h1>
+
+
+    <div class="location">
+
+        <strong>
+            📍 Search Location:
+        </strong>
+
+        {{ location }}
+
+        <br><br>
+
+
+        <strong>
+            Coordinates:
+        </strong>
+
+
+        {% if latitude and longitude %}
+
+            {{ latitude }},
+            {{ longitude }}
+
+        {% else %}
+
+            Location could not be found.
+
+        {% endif %}
+
+    </div>
+
+
+    {% if resources %}
+
+
+        {% for resource in resources %}
+
+
+            <div class="resource-card">
+
+
+                <div class="resource-name">
+
+
+                    {% if resource.type == "Hospital" %}
+
+                        🏥
+
+                    {% elif resource.type == "Fire Station" %}
+
+                        🚒
+
+                    {% elif resource.type == "Clinic" %}
+
+                        🏥
+
+                    {% elif resource.type == "Medical Facility" %}
+
+                        🚑
+
+                    {% endif %}
+
+
+                    {{ resource.name }}
+
+
+                </div>
+
+
+                <div class="resource-type">
+
+                    {{ resource.type }}
+
+                </div>
+
+
+                <div class="address">
+
+                    📍 <strong>Address:</strong>
+
+                    {{ resource.address }}
+
+                </div>
+
+
+                <div class="coordinates">
+
+                    Latitude:
+
+                    {{ resource.latitude }}
+
+                    <br>
+
+                    Longitude:
+
+                    {{ resource.longitude }}
+
+                </div>
+
+
+            </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <div class="empty">
+
+            <h2>
+                No nearby resources found
+            </h2>
+
+            <p>
+                Try another location.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

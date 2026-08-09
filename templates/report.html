@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ResQAI | Report Emergency</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                #f4f7fb;
+
+            color: #172033;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            height: 72px;
+
+            background: #0b162d;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            box-shadow:
+                0 4px 18px rgba(0,0,0,0.12);
+        }
+
+
+        .logo {
+
+            color: white;
+
+            font-size: 26px;
+
+            font-weight: 800;
+
+            letter-spacing: .3px;
+        }
+
+
+        .logo span {
+
+            color: #ff3b3b;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .nav-link {
+
+            color: #dce5f5;
+
+            text-decoration: none;
+
+            padding: 9px 15px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition: .2s;
+        }
+
+
+        .nav-link:hover {
+
+            background:
+                rgba(255,255,255,.08);
+
+            color: white;
+        }
+
+
+        .active {
+
+            background:
+                rgba(255,255,255,.1);
+
+            color: white;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .page {
+
+            width: 100%;
+
+            max-width: 1050px;
+
+            margin: 40px auto;
+
+            padding: 0 20px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ===================================================== */
+
+        .page-header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 13px;
+
+            background:
+                #fff1f1;
+
+            color:
+                #d9272e;
+
+            border:
+                1px solid #ffd6d6;
+
+            border-radius: 30px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 14px;
+        }
+
+
+        .page-header h1 {
+
+            font-size: 36px;
+
+            margin-bottom: 10px;
+
+            color: #101b33;
+        }
+
+
+        .page-header p {
+
+            max-width: 680px;
+
+            margin: auto;
+
+            color: #68758a;
+
+            line-height: 1.6;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .main-card {
+
+            background: white;
+
+            border:
+                1px solid #e5eaf2;
+
+            border-radius: 20px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 15px 45px rgba(25,45,80,.08);
+        }
+
+
+        /* =====================================================
+           INCIDENT TYPES
+        ===================================================== */
+
+        .section-title {
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+
+            color: #18243c;
+        }
+
+
+        .incident-types {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .incident-type {
+
+            border:
+                1px solid #e2e7ef;
+
+            background:
+                #f9fafc;
+
+            border-radius: 14px;
+
+            padding: 18px 12px;
+
+            text-align: center;
+
+            transition: .2s;
+        }
+
+
+        .incident-type:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(20,40,70,.08);
+        }
+
+
+        .incident-icon {
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .incident-name {
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #263550;
+        }
+
+
+        .incident-description {
+
+            font-size: 11px;
+
+            color: #7b8798;
+
+            margin-top: 4px;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-group {
+
+            margin-bottom: 25px;
+        }
+
+
+        .label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #27354e;
+
+            margin-bottom: 9px;
+        }
+
+
+        .required {
+
+            color: #e33138;
+        }
+
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 165px;
+
+            resize: vertical;
+
+            border:
+                1px solid #d8dfeb;
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            background: #fbfcfe;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            color: #27354e;
+
+            outline: none;
+
+            transition: .2s;
+        }
+
+
+        textarea:focus {
+
+            border-color:
+                #e33138;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(227,49,56,.08);
+        }
+
+
+        textarea::placeholder {
+
+            color: #9aa5b5;
+        }
+
+
+        /* =====================================================
+           LOCATION
+        ===================================================== */
+
+        .location-row {
+
+            display: flex;
+
+            gap: 12px;
+        }
+
+
+        .location-wrapper {
+
+            position: relative;
+
+            flex: 1;
+        }
+
+
+        .location-icon {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 17px;
+        }
+
+
+        .location-input {
+
+            width: 100%;
+
+            height: 52px;
+
+            border:
+                1px solid #d8dfeb;
+
+            border-radius: 12px;
+
+            padding:
+                0 15px 0 42px;
+
+            background: #fbfcfe;
+
+            font-size: 15px;
+
+            outline: none;
+
+            color: #27354e;
+
+            transition: .2s;
+        }
+
+
+        .location-input:focus {
+
+            border-color:
+                #e33138;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(227,49,56,.08);
+        }
+
+
+        .location-btn {
+
+            height: 52px;
+
+            padding:
+                0 18px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                #13203b;
+
+            color: white;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+            white-space: nowrap;
+        }
+
+
+        .location-btn:hover {
+
+            background:
+                #213458;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .location-btn:disabled {
+
+            opacity: .7;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .location-status {
+
+            display: none;
+
+            margin-top: 10px;
+
+            padding: 10px 13px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+        }
+
+
+        .location-status.success {
+
+            display: block;
+
+            background:
+                #ecfdf3;
+
+            color:
+                #16834b;
+        }
+
+
+        .location-status.error {
+
+            display: block;
+
+            background:
+                #fff1f1;
+
+            color:
+                #c62828;
+        }
+
+
+        /* =====================================================
+           INFORMATION PANEL
+        ===================================================== */
+
+        .info-panel {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-top: 10px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .info-item {
+
+            background:
+                #f6f8fc;
+
+            border:
+                1px solid #e4e9f1;
+
+            border-radius: 12px;
+
+            padding: 15px;
+        }
+
+
+        .info-item-icon {
+
+            font-size: 20px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .info-item strong {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #263550;
+
+            margin-bottom: 4px;
+        }
+
+
+        .info-item span {
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            color: #7a8799;
+        }
+
+
+        /* =====================================================
+           SUBMIT
+        ===================================================== */
+
+        .submit-btn {
+
+            width: 100%;
+
+            height: 58px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ef3439,
+                    #d91f27
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 9px 22px
+                rgba(217,31,39,.20);
+
+            transition: .2s;
+        }
+
+
+        .submit-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 13px 28px
+                rgba(217,31,39,.28);
+        }
+
+
+        .submit-btn:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .security-note {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            color: #8a95a5;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media(max-width: 750px) {
+
+            .navbar {
+
+                padding:
+                    0 20px;
+            }
+
+
+            .nav-links {
+
+                display: none;
+            }
+
+
+            .page {
+
+                margin-top: 25px;
+            }
+
+
+            .main-card {
+
+                padding: 22px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 28px;
+            }
+
+
+            .incident-types {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .location-row {
+
+                flex-direction: column;
+            }
+
+
+            .location-btn {
+
+                width: 100%;
+            }
+
+
+            .info-panel {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚨 ResQ<span>AI</span>
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="/" class="nav-link">
+            Home
+        </a>
+
+        <a href="/report"
+           class="nav-link active">
+            Report
+        </a>
+
+        <a href="/dashboard"
+           class="nav-link">
+            Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     PAGE
+========================================================= -->
+
+<main class="page">
+
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div class="badge">
+
+            🚨 Emergency Reporting System
+
+        </div>
+
+
+        <h1>
+
+            Report an Emergency
+
+        </h1>
+
+
+        <p>
+
+            Describe what happened and provide the
+            incident location. ResQAI will analyze the
+            emergency and identify the appropriate
+            emergency response resources.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN CARD
+    ===================================================== -->
+
+    <div class="main-card">
+
+
+        <!-- =================================================
+             INCIDENT TYPES
+        ================================================= -->
+
+        <div class="section-title">
+
+            Emergency Categories
+
+        </div>
+
+
+        <div class="incident-types">
+
+
+            <div class="incident-type">
+
+                <div class="incident-icon">
+                    🔥
+                </div>
+
+                <div class="incident-name">
+                    Fire
+                </div>
+
+                <div class="incident-description">
+                    Fire &amp; smoke emergencies
+                </div>
+
+            </div>
+
+
+            <div class="incident-type">
+
+                <div class="incident-icon">
+                    🚗
+                </div>
+
+                <div class="incident-name">
+                    Accident
+                </div>
+
+                <div class="incident-description">
+                    Road &amp; vehicle accidents
+                </div>
+
+            </div>
+
+
+            <div class="incident-type">
+
+                <div class="incident-icon">
+                    🏥
+                </div>
+
+                <div class="incident-name">
+                    Medical
+                </div>
+
+                <div class="incident-description">
+                    Medical emergencies
+                </div>
+
+            </div>
+
+
+            <div class="incident-type">
+
+                <div class="incident-icon">
+                    👮
+                </div>
+
+                <div class="incident-name">
+                    Police
+                </div>
+
+                <div class="incident-description">
+                    Crime &amp; security
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM
+        ================================================= -->
+
+        <form
+            action="/submit-report"
+            method="POST"
+        >
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label
+                    class="label"
+                    for="description"
+                >
+
+                    🚨 What happened?
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <textarea
+                    id="description"
+                    name="description"
+                    required
+                    placeholder="Describe the emergency clearly...
+
+Example:
+A fire accident has occurred near the college gate. A building is on fire and smoke is spreading. Immediate fire assistance is required."
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label
+                    class="label"
+                    for="location"
+                >
+
+                    📍 Where did it happen?
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <div class="location-row">
+
+
+                    <div class="location-wrapper">
+
+                        <span class="location-icon">
+                            📍
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            class="location-input"
+                            placeholder="Enter location, area, city or landmark"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="currentLocationBtn"
+                        class="location-btn"
+                        onclick="getCurrentLocation()"
+                    >
+
+                        📍 Use My Location
+
+                    </button>
+
+
+                </div>
+
+
+                <div
+                    id="locationStatus"
+                    class="location-status"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 INFORMATION CARDS
+            ================================================= -->
+
+            <div class="info-panel">
+
+
+                <div class="info-item">
+
+                    <div class="info-item-icon">
+                        🤖
+                    </div>
+
+                    <strong>
+                        AI Analysis
+                    </strong>
+
+                    <span>
+                        ResQAI analyzes your description
+                        and identifies the incident type.
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-item-icon">
+                        📍
+                    </div>
+
+                    <strong>
+                        Location Detection
+                    </strong>
+
+                    <span>
+                        Your location is used to find
+                        nearby emergency facilities.
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-item-icon">
+                        🚑
+                    </div>
+
+                    <strong>
+                        Smart Response
+                    </strong>
+
+                    <span>
+                        Relevant emergency resources are
+                        prioritized based on the incident.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 HIDDEN GPS
+            ================================================= -->
+
+            <input
+                type="hidden"
+                id="latitude"
+                name="latitude"
+            >
+
+
+            <input
+                type="hidden"
+                id="longitude"
+                name="longitude"
+            >
+
+
+
+            <!-- =================================================
+                 SUBMIT
+            ================================================= -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+
+                🚨 Analyze Emergency &amp; Find Help
+
+            </button>
+
+
+            <div class="security-note">
+
+                🔒 Your information is used only for
+                emergency analysis and resource discovery.
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+function getCurrentLocation() {
+
+    const button =
+        document.getElementById(
+            "currentLocationBtn"
+        );
+
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    /*
+     * Check browser support
+     */
+
+    if (!navigator.geolocation) {
+
+        status.className =
+            "location-status error";
+
+        status.innerText =
+            "❌ Your browser does not support location services.";
+
+        return;
+    }
+
+
+    /*
+     * Button state
+     */
+
+    button.disabled = true;
+
+    button.innerText =
+        "📍 Detecting...";
+
+
+    status.className =
+        "location-status";
+
+    status.style.display =
+        "block";
+
+    status.innerText =
+        "Getting your current location...";
+
+
+    /*
+     * Get GPS coordinates
+     */
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+
+            const latitude =
+                position.coords.latitude;
+
+
+            const longitude =
+                position.coords.longitude;
+
+
+            /*
+             * Store coordinates
+             */
+
+            document.getElementById(
+                "latitude"
+            ).value = latitude;
+
+
+            document.getElementById(
+                "longitude"
+            ).value = longitude;
+
+
+            /*
+             * Show coordinates
+             */
+
+            document.getElementById(
+                "location"
+            ).value =
+
+                latitude.toFixed(6)
+                + ", "
+                + longitude.toFixed(6);
+
+
+            /*
+             * Success
+             */
+
+            status.className =
+                "location-status success";
+
+            status.innerText =
+                "✓ Current location detected successfully.";
+
+
+            button.disabled = false;
+
+            button.innerText =
+                "✓ Location Detected";
+
+        },
+
+
+        function(error) {
+
+
+            button.disabled = false;
+
+            button.innerText =
+                "📍 Use My Location";
+
+
+            status.className =
+                "location-status error";
+
+
+            if (error.code === 1) {
+
+                status.innerText =
+                    "❌ Location permission was denied. Please allow location access.";
+
+            }
+
+            else if (error.code === 2) {
+
+                status.innerText =
+                    "❌ Location could not be determined. Please enter the location manually.";
+
+            }
+
+            else if (error.code === 3) {
+
+                status.innerText =
+                    "❌ Location request timed out. Please try again.";
+
+            }
+
+            else {
+
+                status.innerText =
+                    "❌ Unable to get your current location.";
+
+            }
+
+        },
+
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 15000,
+
+            maximumAge: 0
+
+        }
+
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
